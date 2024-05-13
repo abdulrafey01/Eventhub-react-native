@@ -1,10 +1,21 @@
-import {View, Text, StyleSheet, StatusBar, FlatList} from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  StatusBar,
+  FlatList,
+  Dimensions,
+} from 'react-native';
 import React, {useEffect, useState, useRef} from 'react';
 import SearchBar from '../components/Auth/SearchBar';
 import SearchEventCard from '../components/Search/SearchEventCard';
 
 import RBSheet from 'react-native-raw-bottom-sheet';
 import BottomSheetSearch from '../components/Search/BottomSheetSearch';
+import {useTheme} from '@react-navigation/native';
+import HeaderComponent from '../abstracts/HeaderComponent';
+
+import BottomSheet, {BottomSheetView} from '@gorhom/bottom-sheet';
 const data = [
   {
     id: 1,
@@ -36,7 +47,28 @@ const data = [
     date: '1st May - Sat - 2:00 PM',
     title: 'International gala music festival',
   },
+  {
+    id: 6,
+    image: require('../assets/pngs/searchimg3.png'),
+    date: '1st May - Sat - 2:00 PM',
+    title: 'Women leadership conference',
+  },
+  {
+    id: 7,
+    image: require('../assets/pngs/searchimg4.png'),
+    date: '1st May - Sat - 2:00 PM',
+    title: 'International kids safe parents night out',
+  },
+  {
+    id: 8,
+    image: require('../assets/pngs/searchimg5.png'),
+    date: '1st May - Sat - 2:00 PM',
+    title: 'International gala music festival',
+  },
 ];
+
+const height = Dimensions.get('window').height;
+const width = Dimensions.get('window').width;
 
 const styles = StyleSheet.create({
   screen: {
@@ -44,10 +76,12 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     alignItems: 'center',
     justifyContent: 'flex-start',
-    gap: 20,
+
+    gap: height * 0.02,
+    // gap: 20,
   },
 });
-export default function SearchScreen() {
+export default function SearchScreen({navigation}) {
   let [input, setInput] = useState('');
   let [itemsList, setItemsList] = useState(data);
   let [translucent, setTranslucent] = useState(true);
@@ -63,16 +97,32 @@ export default function SearchScreen() {
   }, [input]);
 
   return (
-    <View style={styles.screen}>
-      <StatusBar barStyle={'dark-content'} translucent={true} />
+    <View
+      style={[styles.screen, {backgroundColor: useTheme().colors.themeColor}]}>
+      <StatusBar
+        barStyle={
+          useTheme().colors.themeColor === 'white'
+            ? 'dark-content'
+            : 'light-content'
+        }
+        translucent={true}
+      />
+
+      <HeaderComponent title={'Search'} navigation={navigation} />
       <SearchBar
         input={input}
         setInput={setInput}
         searchScreen={true}
-        filterOnPress={() => refRBSheet.current.open()}
+        filterOnPress={() => refRBSheet.current.expand()}
       />
       <FlatList
-        ItemSeparatorComponent={() => <View style={{height: 20}} />}
+        contentContainerStyle={{
+          alignItems: 'center',
+          backgroundColor: useTheme().colors.cardbg,
+          width: width,
+        }}
+        ItemSeparatorComponent={() => <View style={{height: height * 0.02}} />}
+        showsVerticalScrollIndicator={false}
         data={itemsList}
         keyExtractor={item => item.id}
         renderItem={({item}) => (
@@ -83,15 +133,20 @@ export default function SearchScreen() {
           />
         )}
       />
-      <RBSheet
+      {/* <RBSheet
         ref={refRBSheet}
-        height={661}
+        height={height * 0.9}
         animationType="slide"
+        useNativeDriver={true}
         closeOnDragDown={true}
         dragFromTopOnly={true}
+        customModalProps={{
+          gestureEnabled: true,
+        }}
         customStyles={{
           container: {
             borderTopEndRadius: 38,
+            backgroundColor: useTheme().colors.themeColor,
             borderTopStartRadius: 38,
           },
         }}
@@ -102,7 +157,26 @@ export default function SearchScreen() {
           setTranslucent(true);
         }}>
         <BottomSheetSearch />
-      </RBSheet>
+      </RBSheet> */}
+      <BottomSheet
+        index={-1}
+        snapPoints={[200]}
+        enablePanDownToClose={true}
+        // containerStyle={{
+        //   backgroundColor: 'red',
+        // }}
+        enableDynamicSizing={true}
+        Onac
+        backgroundStyle={{
+          backgroundColor: useTheme().colors.themeColor,
+          borderTopStartRadius: 38,
+          borderTopEndRadius: 38,
+        }}
+        ref={refRBSheet}>
+        <BottomSheetView>
+          <BottomSheetSearch />
+        </BottomSheetView>
+      </BottomSheet>
     </View>
   );
 }

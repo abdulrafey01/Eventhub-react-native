@@ -1,13 +1,25 @@
-import {View, Text, StyleSheet, Switch} from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Switch,
+  Dimensions,
+  KeyboardAvoidingView,
+  ScrollView,
+} from 'react-native';
 import React from 'react';
 import InputField from '../../abstracts/InputField';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scrollview';
 
 import MsgIcon from '../../svgs/Message.svg';
 import PwdIcon from '../../svgs/Password.svg';
 import PurpleButton from '../../abstracts/PurpleArrowButton';
 
 import ProfileIcon from '../../svgs/Profile.svg';
+import {useTheme} from '@react-navigation/native';
 
+const width = Dimensions.get('window').width;
+const height = Dimensions.get('window').height;
 export default function FormComponent({navigation, type}) {
   const [isEnabled, setIsEnabled] = React.useState(false);
 
@@ -16,14 +28,20 @@ export default function FormComponent({navigation, type}) {
   };
   return (
     <View style={styles.formContainer}>
-      <Text style={styles.secondaryTextStyle}>
+      <Text
+        style={[
+          styles.secondaryTextStyle,
+          {color: useTheme().colors.themeTextColor},
+        ]}>
         {type === 'Signup' ? 'Sign Up' : 'Sign In'}
       </Text>
       {type === 'Signup' && (
         <InputField icon={<ProfileIcon />} placeholder={'Full name'} />
       )}
+
       <InputField icon={<MsgIcon />} placeholder={'abc@gmail.com'} />
       <InputField icon={<PwdIcon />} placeholder={'Your Password'} />
+
       {type === 'Signup' ? (
         <InputField icon={<PwdIcon />} placeholder={'Confirm Password'} />
       ) : (
@@ -37,10 +55,22 @@ export default function FormComponent({navigation, type}) {
                 value={isEnabled}
               />
             </View>
-            <Text style={styles.rememberMeText}>Remember Me</Text>
+            <Text
+              style={[
+                styles.rememberMeText,
+                {color: useTheme().colors.themeTextColor},
+              ]}>
+              Remember Me
+            </Text>
           </View>
           <View>
-            <Text style={styles.forgotPasswordText}>Forgot Password?</Text>
+            <Text
+              style={[
+                styles.forgotPasswordText,
+                {color: useTheme().colors.themeTextColor},
+              ]}>
+              Forgot Password?
+            </Text>
           </View>
         </View>
       )}
@@ -60,21 +90,25 @@ export default function FormComponent({navigation, type}) {
 
 const styles = StyleSheet.create({
   formContainer: {
-    gap: 20,
+    gap: height * 0.025,
     // width: '100%',
   },
   secondaryTextStyle: {
     color: 'black',
-    fontSize: 24,
+    fontSize: width * 0.065,
     fontFamily: 'AirbnbCereal_W_Md',
   },
   textRowContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: 15,
+    marginBottom: height * 0.02,
   },
-  rememberMeContainer: {flexDirection: 'row', alignItems: 'center', gap: 10},
+  rememberMeContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: width * 0.03,
+  },
   switchBackground: {
     backgroundColor: '#5669FF',
     borderRadius: 20,

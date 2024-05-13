@@ -4,6 +4,7 @@ import {
   StyleSheet,
   TextInput,
   TouchableWithoutFeedback,
+  Dimensions,
 } from 'react-native';
 import React from 'react';
 import SearchIcon1 from '../../svgs/searchicon1.svg';
@@ -12,6 +13,9 @@ import BlurContainer from '../../abstracts/BlurContainer';
 import HeadingOne from '../../abstracts/HeadingOne';
 import MenuIcon from '../../svgs/menuicon.svg';
 import MenuIcon2 from '../../svgs/menuicon2.svg';
+
+const height = Dimensions.get('window').height;
+const width = Dimensions.get('window').width;
 export default function SearchBar({
   style,
   navigation,
@@ -24,7 +28,7 @@ export default function SearchBar({
     <TouchableWithoutFeedback onPress={() => {}}>
       <View style={{...styles.container, ...style}}>
         <SearchIcon2 />
-        <View style={[styles.line, {backgroundColor: 'black'}]}></View>
+        <View style={[styles.line, {backgroundColor: '#5669FF'}]}></View>
         <TextInput
           placeholderTextColor={'gray'}
           placeholder="Search..."
@@ -58,15 +62,19 @@ export default function SearchBar({
       <View style={{...styles.container, ...style}}>
         <SearchIcon1 />
         <View style={styles.line}></View>
-        <TextInput placeholder="Search..." style={{flex: 1}} />
+        <TextInput
+          placeholderTextColor={'#AEAEAE'}
+          placeholder="Search..."
+          style={{flex: 1}}
+        />
         <View style={styles.blurContainer}></View>
         <HeadingOne
-          style={{position: 'absolute', right: 10}}
+          style={{position: 'absolute', right: width * 0.025}}
           text="Filters"
-          fontSize={12}
+          fontSize={width * 0.034}
           color={'white'}
         />
-        <MenuIcon style={{position: 'absolute', right: 45}} />
+        <MenuIcon style={{position: 'absolute', right: width * 0.13}} />
       </View>
     </TouchableWithoutFeedback>
   );
@@ -74,21 +82,21 @@ export default function SearchBar({
 
 const styles = StyleSheet.create({
   container: {
-    width: 327,
+    width: width * 0.9,
     flexDirection: 'row',
-    gap: 5,
+    gap: width * 0.015,
     justifyContent: 'flex-start',
     alignItems: 'center',
   },
   line: {
-    height: 20,
+    height: height * 0.035,
     backgroundColor: 'white',
     width: 1,
     opacity: 0.4,
   },
   blurContainer: {
-    width: 75,
-    height: 32,
+    width: width * 0.21,
+    height: height * 0.045,
     borderRadius: 50,
     backgroundColor: 'white',
     opacity: 0.2,

@@ -5,6 +5,7 @@ import {
   StatusBar,
   Image,
   TouchableWithoutFeedback,
+  Dimensions,
 } from 'react-native';
 import React, {useState} from 'react';
 import HeadingOne from '../abstracts/HeadingOne';
@@ -13,28 +14,32 @@ import SimpleButton2 from '../components/MyProfile/SimpleButton2';
 import EditPencil from '../svgs/editpencil.svg';
 import OptionBox from '../abstracts/OptionBox';
 import ProfileTopSection from '../components/MyProfile/ProfileTopSection';
+import {useTheme} from '@react-navigation/native';
+import HeaderComponent from '../abstracts/HeaderComponent';
 
+const height = Dimensions.get('window').height;
+const width = Dimensions.get('window').width;
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
     backgroundColor: 'white',
 
-    gap: 20,
+    gap: height * 0.025,
   },
 
   midContainer: {
-    paddingHorizontal: 20,
-    marginTop: 15,
-    gap: 20,
+    paddingHorizontal: width * 0.06,
+    marginTop: height * 0.02,
+    gap: height * 0.025,
   },
   bottomContainer: {
-    paddingHorizontal: 20,
-    marginTop: 15,
-    gap: 20,
+    paddingHorizontal: width * 0.06,
+    marginTop: height * 0.02,
+    gap: height * 0.025,
   },
   changeBtn: {
-    width: 90,
-    height: 28,
+    width: width * 0.25,
+    height: height * 0.04,
     borderRadius: 14,
     justifyContent: 'center',
     alignItems: 'center',
@@ -52,25 +57,38 @@ const styles = StyleSheet.create({
     opacity: 0.2,
   },
 });
-export default function MyProfile() {
+export default function MyProfile({navigation}) {
   const [showFullText, setShowFullText] = useState(false);
 
   return (
-    <View style={styles.screen}>
-      <StatusBar barStyle={'dark-content'} />
+    <View
+      style={[styles.screen, {backgroundColor: useTheme().colors.themeColor}]}>
+      <StatusBar
+        barStyle={
+          useTheme().colors.themeColor === 'white'
+            ? 'dark-content'
+            : 'light-content'
+        }
+      />
+      <HeaderComponent navigation={navigation} />
       <ProfileTopSection
         name="Gokberk Demirci"
         avatar={require('../assets/pngs/avatar.png')}
       />
       <View style={styles.midContainer}>
-        <HeadingOne text="About Me" fontSize={18} color="black" />
+        <HeadingOne
+          text="About Me"
+          fontSize={width * 0.05}
+          color={useTheme().colors.themeTextColor}
+        />
         {showFullText ? (
           <>
             <Text
               style={{
-                fontSize: 16,
-                color: 'black',
+                fontSize: width * 0.045,
                 fontFamily: 'AirbnbCereal_W_Bk',
+                width: width * 0.9,
+                color: useTheme().colors.themeTextColor,
               }}>
               lorem ipsum dolor sit amet consectetur adipisicing elit
               adipisicing elit lorem ipsum dolor sit amet consectetur
@@ -84,7 +102,7 @@ export default function MyProfile() {
                     color: '#5669FF',
                     color: '#5669FF',
                     fontFamily: 'AirbnbCereal_W_Bk',
-                    fontSize: 16,
+                    fontSize: width * 0.045,
                   }}>
                   {' '}
                   Wrap
@@ -96,10 +114,10 @@ export default function MyProfile() {
           <>
             <Text
               style={{
-                fontSize: 16,
-                color: 'black',
+                fontSize: width * 0.045,
+                color: useTheme().colors.themeTextColor,
                 fontFamily: 'AirbnbCereal_W_Bk',
-                width: 323,
+                width: width * 0.9,
               }}>
               {' '}
               lorem ipsum dolor sit amet consectetur adipisicing elit
@@ -113,7 +131,7 @@ export default function MyProfile() {
                   style={{
                     color: '#5669FF',
                     fontFamily: 'AirbnbCereal_W_Bk',
-                    fontSize: 16,
+                    fontSize: width * 0.045,
                   }}>
                   {' '}
                   Read More
@@ -125,7 +143,11 @@ export default function MyProfile() {
       </View>
       <View style={styles.bottomContainer}>
         <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-          <HeadingOne text="Interest" fontSize={18} color="black" />
+          <HeadingOne
+            text="Interest"
+            fontSize={18}
+            color={useTheme().colors.themeTextColor}
+          />
           <View style={styles.changeBtn}>
             <View style={styles.blurContainer}></View>
             <View style={{flexDirection: 'row', gap: 5}}>
@@ -137,51 +159,51 @@ export default function MyProfile() {
         <View
           style={{
             flexDirection: 'row',
-            columnGap: 5,
-            rowGap: 10,
+            columnGap: width * 0.02,
+            rowGap: height * 0.015,
             flexWrap: 'wrap',
           }}>
           <OptionBox
             text={'Games Online'}
             color={'#6B7AED'}
-            fontSize={13}
-            width={116}
-            height={31}
+            fontSize={width * 0.035}
+            width={width * 0.3}
+            height={height * 0.042}
           />
           <OptionBox
             text={'Concert'}
             color={'#EE544A'}
-            fontSize={13}
-            width={81}
-            height={31}
+            fontSize={width * 0.035}
+            width={width * 0.22}
+            height={height * 0.042}
           />
           <OptionBox
             text={'Music'}
             color={'#EE544A'}
-            fontSize={13}
-            width={66}
-            height={31}
+            fontSize={width * 0.035}
+            width={width * 0.2}
+            height={height * 0.042}
           />
           <OptionBox
             text={'Art'}
             color={'#7D67EE'}
-            fontSize={13}
-            width={51}
-            height={31}
+            fontSize={width * 0.035}
+            width={width * 0.16}
+            height={height * 0.042}
           />
           <OptionBox
             text={'Movie'}
             color={'#29D697'}
-            fontSize={13}
-            width={67}
-            height={31}
+            fontSize={width * 0.035}
+            width={width * 0.2}
+            height={height * 0.042}
           />
           <OptionBox
             text={'Others'}
             color={'#39D1F2'}
-            fontSize={13}
-            width={73}
-            height={31}
+            fontSize={width * 0.035}
+            width={width * 0.2}
+            height={height * 0.042}
           />
         </View>
       </View>

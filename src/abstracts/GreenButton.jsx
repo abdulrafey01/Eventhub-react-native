@@ -1,6 +1,9 @@
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet, Dimensions} from 'react-native';
 import React from 'react';
 import HeadingOne from './HeadingOne';
+
+const height = Dimensions.get('window').height;
+const width = Dimensions.get('window').width;
 
 export default function GreenButton({text, style}) {
   return (
@@ -13,7 +16,7 @@ export default function GreenButton({text, style}) {
 const styles = StyleSheet.create({
   container: {
     minWidth: 72,
-    height: 32,
+    height: height * 0.04,
     backgroundColor: '#00F8FF',
     borderRadius: 5,
     justifyContent: 'center',

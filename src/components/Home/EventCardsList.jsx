@@ -4,12 +4,16 @@ import {
   StyleSheet,
   FlatList,
   TouchableWithoutFeedback,
+  Dimensions,
 } from 'react-native';
 import React from 'react';
 import HeadingOne from '../../abstracts/HeadingOne';
 import TrianglePointer from '../../abstracts/TrianglePointer';
 import EventCard from './EventCard';
+import {useTheme} from '@react-navigation/native';
 
+const height = Dimensions.get('window').height;
+const width = Dimensions.get('window').width;
 export default function EventCardsList({navigation}) {
   const data = [
     {
@@ -40,23 +44,39 @@ export default function EventCardsList({navigation}) {
   return (
     <View style={styles.container}>
       <View style={styles.innerFirst}>
-        <HeadingOne text="Upcoming Events" fontSize={18} color={'black'} />
-        <View style={{flexDirection: 'row', gap: 10, alignItems: 'center'}}>
-          <HeadingOne text="See All" fontSize={14} color={'gray'} />
-          <TrianglePointer
-            color={'gray'}
-            style={{transform: [{rotate: '90deg'}]}}
-          />
-        </View>
+        <HeadingOne
+          text="Upcoming Events"
+          fontSize={width * 0.05}
+          color={useTheme().colors.themeTextColor}
+        />
+        <TouchableWithoutFeedback
+          onPress={() => {
+            navigation.navigate('AllEvents');
+          }}>
+          <View
+            style={{
+              flexDirection: 'row',
+              gap: width * 0.03,
+              alignItems: 'center',
+            }}>
+            <HeadingOne text="See All" fontSize={width * 0.04} color={'gray'} />
+            <TrianglePointer
+              color={'gray'}
+              style={{transform: [{rotate: '90deg'}]}}
+            />
+          </View>
+        </TouchableWithoutFeedback>
       </View>
       <TouchableWithoutFeedback>
         <View
           style={{
             width: '100%',
-            height: 260,
+            height: height * 0.35,
           }}>
           <FlatList
-            // style={{paddingLeft: 20}}
+            contentContainerStyle={{
+              backgroundColor: useTheme().colors.cardbg,
+            }}
             data={data}
             renderItem={({item}) => (
               <EventCard
@@ -66,10 +86,14 @@ export default function EventCardsList({navigation}) {
                 location={item.location}
               />
             )}
-            ListHeaderComponent={() => <View style={{paddingLeft: 20}} />}
+            ListHeaderComponent={() => (
+              <View style={{paddingLeft: width * 0.04}} />
+            )}
             horizontal={true}
             keyExtractor={item => item.id}
-            ItemSeparatorComponent={() => <View style={{width: 10}} />}
+            ItemSeparatorComponent={() => (
+              <View style={{width: width * 0.01}} />
+            )}
             showsHorizontalScrollIndicator={false}
           />
         </View>
@@ -83,13 +107,13 @@ const styles = StyleSheet.create({
     // backgroundColor: 'green',
     justifyContent: 'center',
     alignItems: 'center',
-    gap: 10,
+    gap: height * 0.01,
   },
   innerFirst: {
-    width: 327,
-    height: 34,
+    width: width * 0.9,
+    height: height * 0.044,
     // backgroundColor: 'red',
-    marginTop: 10,
+    marginTop: height * 0.015,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',

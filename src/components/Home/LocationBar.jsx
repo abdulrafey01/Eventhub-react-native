@@ -1,9 +1,11 @@
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet, Dimensions} from 'react-native';
 import React from 'react';
 import MenuIcon from '../../abstracts/MenuIcon';
 import LocationBox from '../../abstracts/LocationBox';
 import BellIcon from '../../abstracts/BellIcon';
 
+const height = Dimensions.get('window').height;
+const width = Dimensions.get('window').width;
 export default function LocationBar({OnClick}) {
   return (
     <View style={styles.container}>
@@ -19,7 +21,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    width: 327,
+    width: width * 0.9,
     // backgroundColor: 'white',
   },
 });

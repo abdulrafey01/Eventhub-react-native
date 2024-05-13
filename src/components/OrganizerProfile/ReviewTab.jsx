@@ -1,12 +1,16 @@
-import {View, Text, StyleSheet, FlatList} from 'react-native';
+import {View, Text, StyleSheet, FlatList, Dimensions} from 'react-native';
 import React from 'react';
 import ReviewCard from './ReviewCard';
+import {useTheme} from '@react-navigation/native';
+
+const height = Dimensions.get('window').height;
+const width = Dimensions.get('window').width;
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: 'white',
-    padding: 20,
+    padding: width * 0.055,
   },
 });
 
@@ -41,11 +45,16 @@ const data = [
 ];
 export default function ReviewTab() {
   return (
-    <View style={styles.container}>
+    <View
+      style={[
+        styles.container,
+        {backgroundColor: useTheme().colors.themeColor},
+      ]}>
       <FlatList
-        ItemSeparatorComponent={() => <View style={{height: 30}} />}
+        ItemSeparatorComponent={() => <View style={{height: height * 0.04}} />}
         data={data}
         keyExtractor={item => item.id}
+        showsVerticalScrollIndicator={false}
         renderItem={({item}) => (
           <ReviewCard
             name={item.name}

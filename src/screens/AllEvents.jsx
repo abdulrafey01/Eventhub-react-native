@@ -5,12 +5,17 @@ import {
   StyleSheet,
   FlatList,
   TouchableWithoutFeedback,
+  Dimensions,
 } from 'react-native';
 import React from 'react';
 import SearchEventCard from '../components/Search/SearchEventCard';
 import HeadingOne from '../abstracts/HeadingOne';
 import SearchIcon from '../svgs/blacksearch.svg';
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation, useTheme} from '@react-navigation/native';
+import HeaderComponent from '../abstracts/HeaderComponent';
+
+const height = Dimensions.get('window').height;
+const width = Dimensions.get('window').width;
 
 const data = [
   {
@@ -48,46 +53,71 @@ const data = [
     title: 'International gala music festival',
     location: 'Radius Gallery - Santa Cruz, CA',
   },
+  {
+    id: 6,
+    image: require('../assets/pngs/searchimg3.png'),
+    date: '1st May - Sat - 2:00 PM',
+    title: 'International gala music festival',
+    location: 'Radius Gallery - Santa Cruz, CA',
+  },
 ];
 
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
+
+    gap: height * 0.03,
     backgroundColor: 'white',
     alignItems: 'center',
     justifyContent: 'flex-start',
-    gap: 20,
+    // gap: 20,
   },
   topContainer: {
-    width: 300,
-    height: 30,
+    width: width * 0.82,
+    height: height * 0.05,
     // backgroundColor: 'red',
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginRight: 150,
+    marginRight: width * 0.4,
   },
   iconsContainer: {
-    width: 80,
-    height: 30,
+    width: width * 0.23,
+    height: height * 0.04,
     // backgroundColor: 'green',
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    gap: 20,
+    gap: width * 0.06,
   },
   menu: {
-    gap: 2,
+    gap: width * 0.007,
   },
 });
-export default function AllEvents() {
+export default function AllEvents({navigation}) {
   return (
-    <View style={styles.screen}>
-      <StatusBar barStyle={'dark-content'} />
+    <View
+      style={[styles.screen, {backgroundColor: useTheme().colors.themeColor}]}>
+      <StatusBar
+        barStyle={
+          useTheme().colors.themeColor === 'white'
+            ? 'dark-content'
+            : 'light-content'
+        }
+      />
+
+      <HeaderComponent title={'Events'} navigation={navigation} />
 
       <FlatList
-        ItemSeparatorComponent={() => <View style={{height: 20}} />}
+        contentContainerStyle={{
+          alignItems: 'center',
+          backgroundColor: useTheme().colors.cardbg,
+          width: width,
+          // paddingTop: height * 0.03,
+        }}
+        ItemSeparatorComponent={() => <View style={{height: height * 0.02}} />}
         data={data}
+        showsVerticalScrollIndicator={false}
         keyExtractor={item => item.id}
         renderItem={({item}) => (
           <SearchEventCard
@@ -105,11 +135,15 @@ export default function AllEvents() {
 const TopContainer = () => {
   const navigation = useNavigation();
   return (
-    <View style={styles.topContainer}>
+    <View
+      style={[
+        styles.topContainer,
+        // {backgroundColor: useTheme().colors.themeColor},
+      ]}>
       <HeadingOne
         text="Events"
-        fontSize={18}
-        color={'black'}
+        fontSize={width * 0.055}
+        color={useTheme().colors.themeTextColor}
         family="AirbnbCereal_W_Bd"
       />
       <View style={styles.iconsContainer}>
@@ -122,23 +156,23 @@ const TopContainer = () => {
         <View style={styles.menu}>
           <View
             style={{
-              height: 3,
-              width: 3,
-              backgroundColor: 'black',
+              height: width * 0.01,
+              width: width * 0.01,
+              backgroundColor: useTheme().colors.themeTextColor,
               borderRadius: 10,
             }}></View>
           <View
             style={{
-              height: 3,
-              width: 3,
-              backgroundColor: 'black',
+              height: width * 0.01,
+              width: width * 0.01,
+              backgroundColor: useTheme().colors.themeTextColor,
               borderRadius: 10,
             }}></View>
           <View
             style={{
-              height: 3,
-              width: 3,
-              backgroundColor: 'black',
+              height: width * 0.01,
+              width: width * 0.01,
+              backgroundColor: useTheme().colors.themeTextColor,
               borderRadius: 10,
             }}></View>
         </View>

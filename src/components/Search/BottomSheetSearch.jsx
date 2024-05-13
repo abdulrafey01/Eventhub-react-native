@@ -1,4 +1,4 @@
-import {View, Text, StyleSheet, FlatList} from 'react-native';
+import {View, Text, StyleSheet, FlatList, Dimensions} from 'react-native';
 import React, {useState} from 'react';
 import HeadingOne from '../../abstracts/HeadingOne';
 import FilterOption from './FilterOption';
@@ -14,6 +14,9 @@ import LocButton from './LocButton';
 
 import RangeSlider from 'rn-range-slider';
 import RangeThumb from '../../svgs/rangeThumb.svg';
+import {useTheme} from '@react-navigation/native';
+import CustomRangeSlider from './CustomRangeSlider';
+import {Gesture, GestureDetector} from 'react-native-gesture-handler';
 const optionData = [
   {
     id: 1,
@@ -41,25 +44,29 @@ const optionData = [
   },
 ];
 
+const height = Dimensions.get('window').height;
+const width = Dimensions.get('window').width;
+
 const styles = StyleSheet.create({
   container: {
     justifyContent: 'center',
-    gap: 30,
-    paddingLeft: 20,
+    gap: height * 0.04,
+    paddingLeft: width * 0.05,
+    paddingBottom: height * 0.03,
   },
   tdContainer: {
-    gap: 15,
+    gap: height * 0.02,
   },
   timeBtnContainer: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    gap: 10,
+    gap: width * 0.03,
   },
   locContainer: {
-    gap: 15,
+    gap: height * 0.02,
   },
   rangeContainer: {
-    gap: 15,
+    gap: height * 0.02,
   },
   rangeTxtContainer: {
     flexDirection: 'row',
@@ -69,26 +76,34 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    gap: 15,
+    gap: width * 0.05,
   },
 });
 export default function BottomSheetSearch() {
   const [rangeLow, setRangeLow] = useState(0);
   const [rangeHigh, setRangeHigh] = useState(0);
+
+  const pan = Gesture.Pan().onUpdate(() => {
+    console.log('pan');
+  });
   return (
-    <View style={styles.container}>
+    <View
+      style={[
+        styles.container,
+        {backgroundColor: useTheme().colors.themeColor},
+      ]}>
       <HeadingOne
         text={'Filter'}
-        fontSize={25}
-        family="AirbnbCereal_W_Bk"
-        color={'black'}
+        fontSize={width * 0.07}
+        family="AirbnbCereal_W_Bd"
+        color={useTheme().colors.themeTextColor}
       />
       <FlatList
         style={{alignSelf: 'center'}}
         data={optionData}
         horizontal={true}
         showsHorizontalScrollIndicator={true}
-        ItemSeparatorComponent={() => <View style={{width: 10}} />}
+        ItemSeparatorComponent={() => <View style={{width: width * 0.03}} />}
         keyExtractor={item => item.id}
         renderItem={({item}) => (
           <FilterOption
@@ -98,27 +113,43 @@ export default function BottomSheetSearch() {
           />
         )}></FlatList>
       <View style={styles.tdContainer}>
-        <HeadingOne text={'Time & Date'} color={'black'} fontSize={16} />
+        <HeadingOne
+          text={'Time & Date'}
+          color={useTheme().colors.themeTextColor}
+          fontSize={width * 0.045}
+        />
         <View style={styles.timeBtnContainer}>
-          <TimeButton title={'Today'} width={81} isSelected={false} />
-          <TimeButton title={'Tommorrow'} width={110} isSelected={true} />
-          <TimeButton title={'This Week'} width={107} isSelected={false} />
+          <TimeButton title={'Today'} width={width * 0.2} isSelected={false} />
+          <TimeButton
+            title={'Tommorrow'}
+            width={width * 0.3}
+            isSelected={true}
+          />
+          <TimeButton
+            title={'This Week'}
+            width={width * 0.3}
+            isSelected={false}
+          />
           <TimeButton
             icon={<Calender />}
             title={'Choose from calender'}
-            width={241}
+            width={width * 0.63}
             isSelected={false}
             endIcon={<Arrow />}
           />
         </View>
       </View>
       <View style={styles.locContainer}>
-        <HeadingOne text={'Location'} color={'black'} fontSize={16} />
+        <HeadingOne
+          text={'Location'}
+          color={useTheme().colors.themeTextColor}
+          fontSize={16}
+        />
         <LocButton
           icon={<Calender />}
           title={'New York, USA'}
-          width={334}
-          height={60}
+          width={width * 0.9}
+          height={height * 0.08}
           isSelected={false}
           endIcon={<Arrow />}
         />
@@ -127,18 +158,18 @@ export default function BottomSheetSearch() {
         <View style={styles.rangeTxtContainer}>
           <HeadingOne
             text={'Select Price Range'}
-            color={'black'}
-            fontSize={16}
+            color={useTheme().colors.themeTextColor}
+            fontSize={width * 0.045}
           />
           <HeadingOne
-            style={{marginRight: 10}}
+            style={{marginRight: width * 0.04}}
             text={'$20 - $120'}
             color={'#5669FF'}
-            fontSize={16}
+            fontSize={width * 0.045}
           />
         </View>
         <RangeSlider
-          style={{marginRight: 10}}
+          style={{marginRight: width * 0.04}}
           min={0}
           max={100}
           step={1}
@@ -152,12 +183,20 @@ export default function BottomSheetSearch() {
           renderThumb={() => <RangeThumb />}
           renderRail={() => (
             <View
-              style={{width: '100%', height: 5, backgroundColor: '#E4DFDF'}}
+              style={{
+                width: '100%',
+                height: height * 0.005,
+                backgroundColor: '#E4DFDF',
+              }}
             />
           )}
           renderRailSelected={() => (
             <View
-              style={{width: '100%', height: 5, backgroundColor: '#5669FF'}}
+              style={{
+                width: '100%',
+                height: height * 0.005,
+                backgroundColor: '#5669FF',
+              }}
             />
           )}
         />
@@ -166,17 +205,17 @@ export default function BottomSheetSearch() {
         <TimeButton
           title={'RESET'}
           txtColor={'black'}
-          fontSize={16}
-          width={130}
-          height={58}
+          fontSize={width * 0.045}
+          width={width * 0.35}
+          height={height * 0.073}
           isSelected={false}
         />
         <TimeButton
-          fontSize={16}
+          fontSize={width * 0.045}
           title={'Apply'}
           txtColor={'black'}
-          width={185}
-          height={58}
+          width={width * 0.5}
+          height={height * 0.073}
           isSelected={true}
         />
       </View>

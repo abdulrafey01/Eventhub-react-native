@@ -1,9 +1,11 @@
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet, Dimensions} from 'react-native';
 import React from 'react';
 
+const width = Dimensions.get('window').width;
+const height = Dimensions.get('window').height;
 export default function HeadingOne({
   text,
-  fontSize = 19,
+  fontSize = width * 0.065,
   color,
   textAlign = 'left',
   family = 'AirbnbCereal_W_Md',

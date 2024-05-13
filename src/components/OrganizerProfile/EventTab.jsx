@@ -1,6 +1,11 @@
-import {View, Text, StyleSheet, FlatList} from 'react-native';
+import {View, Text, StyleSheet, FlatList, Dimensions} from 'react-native';
 import React from 'react';
 import SearchEventCard from '../Search/SearchEventCard';
+import {useTheme} from '@react-navigation/native';
+import HeaderComponent from '../../abstracts/HeaderComponent';
+
+const height = Dimensions.get('window').height;
+const width = Dimensions.get('window').width;
 
 const data = [
   {
@@ -38,14 +43,24 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: 'white',
-    padding: 20,
+    paddingTop: height * 0.03,
   },
 });
 export default function EventTab() {
   return (
-    <View style={styles.container}>
+    <View
+      style={[
+        styles.container,
+        {backgroundColor: useTheme().colors.themeColor},
+      ]}>
       <FlatList
-        ItemSeparatorComponent={() => <View style={{height: 20}} />}
+        ItemSeparatorComponent={() => <View style={{height: height * 0.02}} />}
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={{
+          alignItems: 'center',
+          backgroundColor: useTheme().colors.cardbg,
+          width: width,
+        }}
         data={data}
         keyExtractor={item => item.id}
         renderItem={({item}) => (

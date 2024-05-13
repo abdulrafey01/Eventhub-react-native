@@ -1,22 +1,36 @@
-import {View, Text, StyleSheet, TouchableWithoutFeedback} from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableWithoutFeedback,
+  Dimensions,
+} from 'react-native';
 import React, {useState} from 'react';
+import {useTheme} from '@react-navigation/native';
+
+const height = Dimensions.get('window').height;
+const width = Dimensions.get('window').width;
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: 'white',
-    padding: 20,
+    padding: width * 0.055,
   },
 });
 export default function AboutTab() {
   const [showFullText, setShowFullText] = useState(false);
   return (
-    <View style={styles.container}>
+    <View
+      style={[
+        styles.container,
+        {backgroundColor: useTheme().colors.themeColor},
+      ]}>
       {showFullText ? (
         <Text
           style={{
-            fontSize: 16,
-            color: 'black',
+            fontSize: width * 0.045,
+            color: useTheme().colors.themeTextColor,
             fontFamily: 'AirbnbCereal_W_Bk',
           }}>
           {' '}
@@ -31,7 +45,7 @@ export default function AboutTab() {
                 color: '#5669FF',
                 color: '#5669FF',
                 fontFamily: 'AirbnbCereal_W_Bk',
-                fontSize: 16,
+                fontSize: width * 0.045,
               }}>
               Wrap
             </Text>
@@ -40,8 +54,8 @@ export default function AboutTab() {
       ) : (
         <Text
           style={{
-            fontSize: 16,
-            color: 'black',
+            fontSize: width * 0.045,
+            color: useTheme().colors.themeTextColor,
             fontFamily: 'AirbnbCereal_W_Bk',
           }}>
           {' '}
@@ -54,7 +68,7 @@ export default function AboutTab() {
                 color: '#5669FF',
                 color: '#5669FF',
                 fontFamily: 'AirbnbCereal_W_Bk',
-                fontSize: 16,
+                fontSize: width * 0.045,
               }}>
               Read More
             </Text>

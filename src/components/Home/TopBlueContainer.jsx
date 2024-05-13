@@ -1,4 +1,11 @@
-import {View, Text, StyleSheet, StatusBar, FlatList} from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  StatusBar,
+  FlatList,
+  Dimensions,
+} from 'react-native';
 import React from 'react';
 import LocationBar from './LocationBar';
 import SearchBar from '../Auth/SearchBar';
@@ -8,6 +15,8 @@ import MusicIcon from '../../svgs/music.svg';
 import FoodIcon from '../../svgs/food.svg';
 import ArtIcon from '../../svgs/art.svg';
 
+const height = Dimensions.get('window').height;
+const width = Dimensions.get('window').width;
 export default function TopBlueContainer({OnClick, navigation}) {
   const data = [
     {id: 1, name: 'Sports', color: '#F0635A', icon: <SportIcon />},
@@ -15,6 +24,7 @@ export default function TopBlueContainer({OnClick, navigation}) {
     {id: 3, name: 'Food', color: '#29D697', icon: <FoodIcon />},
     {id: 4, name: 'Art', color: '#46CDFB', icon: <ArtIcon />},
   ];
+
   return (
     <>
       <StatusBar
@@ -34,12 +44,12 @@ export default function TopBlueContainer({OnClick, navigation}) {
             color={item.color}
             text={item.name}
             icon={item.icon}
-            width={107}
+            width={width * 0.26}
           />
         )}
-        ListHeaderComponent={() => <View style={{width: 20}} />}
+        ListHeaderComponent={() => <View style={{width: width * 0.07}} />}
         keyExtractor={item => item.id}
-        ItemSeparatorComponent={() => <View style={{width: 10}} />}
+        ItemSeparatorComponent={() => <View style={{width: height * 0.015}} />}
         horizontal={true}
         showsHorizontalScrollIndicator={false}
       />
@@ -49,8 +59,8 @@ export default function TopBlueContainer({OnClick, navigation}) {
 
 const styles = StyleSheet.create({
   container: {
-    width: 375,
-    height: 179,
+    width: width * 1,
+    height: height * 0.25,
     backgroundColor: '#4A43EC',
     borderBottomEndRadius: 33,
     borderBottomStartRadius: 33,
@@ -58,9 +68,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   arrayContainer: {
-    maxHeight: 39.42,
+    // maxHeight: height * 0.25,
+    // backgroundColor: 'red',
     position: 'absolute',
-    top: 155,
+    top: height * 0.22,
     // paddingLeft: 20,
   },
 });

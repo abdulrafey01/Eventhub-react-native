@@ -1,13 +1,15 @@
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet, Dimensions} from 'react-native';
 import React from 'react';
 import Bell from '../svgs/bellicon.svg';
 import BlurContainer from './BlurContainer';
 
+const height = Dimensions.get('window').height;
+const width = Dimensions.get('window').width;
 export default function BellIcon() {
   return (
     <View style={styles.container}>
       <Bell style={{position: 'absolute'}} />
-      <BlurContainer width={36} height={36} />
+      <BlurContainer width={width * 0.1} height={width * 0.1} />
     </View>
   );
 }

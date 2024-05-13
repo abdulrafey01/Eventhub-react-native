@@ -2,6 +2,7 @@ import {View, Text, StyleSheet, TouchableWithoutFeedback} from 'react-native';
 import React, {useState} from 'react';
 import HeadingOne from '../../abstracts/HeadingOne';
 import LocIcon from '../../svgs/locFilter.svg';
+import {useTheme} from '@react-navigation/native';
 const styles = StyleSheet.create({
   container: {
     width: 81,
@@ -33,7 +34,7 @@ export default function LocButton({
           {width},
           {height},
           {
-            backgroundColor: isBlue ? '#5669FF' : 'white',
+            backgroundColor: isBlue ? '#5669FF' : useTheme().colors.themeColor,
             justifyContent: icon ? 'flex-start' : 'center',
           },
         ]}>
@@ -42,7 +43,7 @@ export default function LocButton({
           text={title}
           fontSize={16}
           family="AirbnbCereal_W_Bk"
-          color={isBlue ? 'white' : 'black'}
+          color={isBlue ? 'white' : useTheme().colors.themeTextColor}
         />
         <View style={{position: 'absolute', right: 15}}>{endIcon}</View>
       </View>

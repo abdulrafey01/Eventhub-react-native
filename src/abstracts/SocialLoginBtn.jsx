@@ -1,6 +1,8 @@
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet, Dimensions} from 'react-native';
 import React from 'react';
 
+const width = Dimensions.get('window').width;
+const height = Dimensions.get('window').height;
 export default function SocialLoginBtn({icon, text}) {
   return (
     <View style={styles.container}>
@@ -12,10 +14,10 @@ export default function SocialLoginBtn({icon, text}) {
 
 const styles = StyleSheet.create({
   container: {
-    width: 273,
-    height: 56,
+    width: width * 0.75,
+    height: height * 0.075,
     flexDirection: 'row',
-    gap: 20,
+    gap: width * 0.05,
     backgroundColor: 'white',
     justifyContent: 'center',
     alignItems: 'center',

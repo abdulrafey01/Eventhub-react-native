@@ -1,6 +1,14 @@
-import {View, Text, StyleSheet, TouchableWithoutFeedback} from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableWithoutFeedback,
+  Dimensions,
+} from 'react-native';
 import React from 'react';
 
+const height = Dimensions.get('window').height;
+const width = Dimensions.get('window').width;
 export default function MenuIcon({OnClick}) {
   return (
     <TouchableWithoutFeedback onPress={OnClick}>
@@ -15,20 +23,21 @@ export default function MenuIcon({OnClick}) {
 
 const styles = StyleSheet.create({
   container: {
-    width: 24,
-    height: 19.2,
+    width: width * 0.08,
+    height: height * 0.025,
+    // backgroundColor: 'red',
     justifyContent: 'space-between',
     alignItems: 'flex-start',
   },
   firstLine: {
-    width: 24,
-    height: 2.4,
+    width: width * 0.07,
+    height: height * 0.0025,
     backgroundColor: 'white',
     borderRadius: 1.5,
   },
   secondLine: {
-    width: 18,
-    height: 2.4,
+    width: width * 0.05,
+    height: height * 0.0025,
     backgroundColor: 'white',
     borderRadius: 1.5,
   },

@@ -1,7 +1,16 @@
-import {View, Text, StyleSheet, TouchableWithoutFeedback} from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableWithoutFeedback,
+  Dimensions,
+} from 'react-native';
 import React, {useEffect} from 'react';
 
 import ArrowIcon from '../svgs/arrowicon.svg';
+
+const width = Dimensions.get('window').width;
+const height = Dimensions.get('window').height;
 export default function PurpleButton({onClick, text, type, style}) {
   return (
     <TouchableWithoutFeedback onPress={onClick}>
@@ -15,8 +24,8 @@ export default function PurpleButton({onClick, text, type, style}) {
 
 const styles = StyleSheet.create({
   buttonStyle: {
-    width: 271,
-    height: 58,
+    width: width * 0.75,
+    height: height * 0.08,
     backgroundColor: '#5669FF',
     alignSelf: 'center',
     borderRadius: 15,
@@ -25,11 +34,11 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     fontFamily: 'AirbnbCereal_W_Bk',
-    fontSize: 16,
+    fontSize: width * 0.045,
     color: 'white',
   },
   btnIcon: {
     position: 'absolute',
-    right: 15,
+    right: width * 0.035,
   },
 });

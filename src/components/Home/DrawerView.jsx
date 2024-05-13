@@ -4,6 +4,7 @@ import {
   StyleSheet,
   Image,
   TouchableWithoutFeedback,
+  Dimensions,
 } from 'react-native';
 import React from 'react';
 
@@ -17,54 +18,120 @@ import SmallFaqIcon from '../../svgs/smallfaq.svg';
 import SmallSignoutIcon from '../../svgs/smallsignout.svg';
 import Crown from '../../svgs/crown.svg';
 import HeadingOne from '../../abstracts/HeadingOne';
+import {useNavigation, useTheme} from '@react-navigation/native';
 
-export default function DrawerView({navigation}) {
+const height = Dimensions.get('window').height;
+const width = Dimensions.get('window').width;
+
+export default function DrawerView({drawer}) {
+  const navigation = useNavigation();
   return (
-    <View style={styles.screen}>
+    <View
+      style={[styles.screen, {backgroundColor: useTheme().colors.themeColor}]}>
       <View style={{gap: 10}}>
         <Image
           style={styles.avatarStyle}
           source={require('../../assets/pngs/avatar.png')}
         />
-        <HeadingOne text="Gokberk Demirci" fontSize={19} color="black" />
+        <HeadingOne
+          text="Gokberk Demirci"
+          fontSize={19}
+          color={useTheme().colors.themeTextColor}
+        />
       </View>
       <View style={styles.menuContainer}>
         <TouchableWithoutFeedback
           onPress={() => {
             navigation.navigate('MyProfile');
+            drawer.current.closeDrawer();
           }}>
           <View style={styles.singleMenuContainer}>
             <SmallProfileIcon />
-            <Text style={styles.tertiaryTextStyle}>My Profile</Text>
+            <Text
+              style={[
+                styles.tertiaryTextStyle,
+                {color: useTheme().colors.themeTextColor},
+              ]}>
+              My Profile
+            </Text>
+          </View>
+        </TouchableWithoutFeedback>
+        <TouchableWithoutFeedback
+          onPress={() => {
+            navigation.navigate('EmptyNotification');
+
+            drawer.current.closeDrawer();
+          }}>
+          <View style={styles.singleMenuContainer}>
+            <SmallMessageIcon />
+            <Text
+              style={[
+                styles.tertiaryTextStyle,
+                {color: useTheme().colors.themeTextColor},
+              ]}>
+              Message
+            </Text>
           </View>
         </TouchableWithoutFeedback>
         <View style={styles.singleMenuContainer}>
-          <SmallMessageIcon />
-          <Text style={styles.tertiaryTextStyle}>Message</Text>
-        </View>
-        <View style={styles.singleMenuContainer}>
           <SmallCalenderIcon />
-          <Text style={styles.tertiaryTextStyle}>Calender</Text>
+          <Text
+            style={[
+              styles.tertiaryTextStyle,
+              {color: useTheme().colors.themeTextColor},
+            ]}>
+            Calender
+          </Text>
         </View>
         <View style={styles.singleMenuContainer}>
           <SmallBookmarkIcon />
-          <Text style={styles.tertiaryTextStyle}>Bookmark</Text>
+          <Text
+            style={[
+              styles.tertiaryTextStyle,
+              {color: useTheme().colors.themeTextColor},
+            ]}>
+            Bookmark
+          </Text>
         </View>
         <View style={styles.singleMenuContainer}>
           <SmallContactusIcon />
-          <Text style={styles.tertiaryTextStyle}>Contact Us</Text>
+          <Text
+            style={[
+              styles.tertiaryTextStyle,
+              {color: useTheme().colors.themeTextColor},
+            ]}>
+            Contact Us
+          </Text>
         </View>
         <View style={styles.singleMenuContainer}>
           <SmallSettingIcon />
-          <Text style={styles.tertiaryTextStyle}>Settings</Text>
+          <Text
+            style={[
+              styles.tertiaryTextStyle,
+              {color: useTheme().colors.themeTextColor},
+            ]}>
+            Settings
+          </Text>
         </View>
         <View style={styles.singleMenuContainer}>
           <SmallFaqIcon />
-          <Text style={styles.tertiaryTextStyle}>Helps & FAQs</Text>
+          <Text
+            style={[
+              styles.tertiaryTextStyle,
+              {color: useTheme().colors.themeTextColor},
+            ]}>
+            Helps & FAQs
+          </Text>
         </View>
         <View style={styles.singleMenuContainer}>
           <SmallSignoutIcon />
-          <Text style={styles.tertiaryTextStyle}>Sign Out</Text>
+          <Text
+            style={[
+              styles.tertiaryTextStyle,
+              {color: useTheme().colors.themeTextColor},
+            ]}>
+            Sign Out
+          </Text>
         </View>
       </View>
       <View style={styles.buttonContainer}>
@@ -80,17 +147,17 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'flex-start',
     justifyContent: 'center',
-    gap: 50,
-    paddingLeft: 30,
+    gap: height * 0.07,
+    paddingLeft: width * 0.075,
   },
 
   avatarStyle: {
-    width: 60,
-    height: 60,
+    width: width * 0.17,
+    height: width * 0.17,
     borderRadius: 50,
   },
   menuContainer: {
-    gap: 20,
+    gap: height * 0.025,
     justifyContent: 'center',
     alignItems: 'flex-start',
   },
@@ -98,11 +165,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'flex-start',
     alignItems: 'center',
-    gap: 10,
+    gap: width * 0.03,
   },
   secondaryTextStyle: {
     color: 'black',
-    fontSize: 19,
+    fontSize: width * 0.037,
     fontFamily: 'AirbnbCereal_W_Md',
   },
   tertiaryTextStyle: {
@@ -111,15 +178,15 @@ const styles = StyleSheet.create({
     fontFamily: 'AirbnbCereal_W_Bk',
   },
   buttonContainer: {
-    marginTop: 50,
-    width: 150,
-    height: 46,
+    marginTop: height * 0.06,
+    width: width * 0.45,
+    height: height * 0.06,
     backgroundColor: 'rgba(0, 248, 255, 0.2)',
     borderRadius: 8,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    gap: 10,
+    gap: width * 0.03,
   },
   upgradeTextStyle: {
     color: '#00F8FF',

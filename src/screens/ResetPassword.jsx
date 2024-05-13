@@ -1,18 +1,38 @@
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet, Dimensions} from 'react-native';
 import React from 'react';
 import PurpleButton from '../abstracts/PurpleArrowButton';
 import InputField from '../abstracts/InputField';
 import MsgIcon from '../svgs/Message.svg';
+import {useTheme} from '@react-navigation/native';
+
+const width = Dimensions.get('window').width;
+const height = Dimensions.get('window').height;
 export default function ResetPassword({navigation}) {
   return (
-    <View style={styles.screen}>
+    <View
+      style={[styles.screen, {backgroundColor: useTheme().colors.themeColor}]}>
       <View style={styles.container}>
-        <Text style={styles.secondaryTextStyle}>Reset Password</Text>
+        <Text
+          style={[
+            styles.secondaryTextStyle,
+            {color: useTheme().colors.themeTextColor},
+          ]}>
+          Reset Password
+        </Text>
         <View>
-          <Text style={styles.resetText}>
+          <Text
+            style={[
+              styles.resetText,
+              {color: useTheme().colors.themeTextColor},
+            ]}>
             Please enter your email address to
           </Text>
-          <Text style={{...styles.resetText, marginBottom: 10}}>
+          <Text
+            style={{
+              ...styles.resetText,
+              marginBottom: 10,
+              color: useTheme().colors.themeTextColor,
+            }}>
             {' '}
             request a password reset
           </Text>
@@ -35,14 +55,14 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     alignItems: 'center',
     justifyContent: 'center',
-    gap: 30,
+    // gap: 30,
   },
   container: {
-    gap: 10,
+    gap: height * 0.015,
   },
   secondaryTextStyle: {
     color: 'black',
-    fontSize: 24,
+    fontSize: width * 0.066,
     fontFamily: 'AirbnbCereal_W_Md',
   },
 
@@ -53,23 +73,6 @@ const styles = StyleSheet.create({
   inputContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginBottom: 30,
-  },
-  codeBox: {
-    width: 55,
-    height: 55,
-    borderRadius: 12,
-    borderWidth: 1,
-    borderColor: '#E4DFDF',
-    paddingHorizontal: 20,
-    color: 'black',
-    fontSize: 24,
-    fontWeight: 'bold',
-  },
-  footerText: {
-    color: 'black',
-    fontFamily: 'AirbnbCereal_W_Bk',
-    alignSelf: 'center',
-    marginTop: 10,
+    marginBottom: height * 0.03,
   },
 });

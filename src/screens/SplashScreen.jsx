@@ -1,6 +1,7 @@
 import {View, Text, StyleSheet, StatusBar} from 'react-native';
 import React, {useEffect} from 'react';
 import SplashLogo from '../svgs/splashlogo.svg';
+import {useTheme} from '@react-navigation/native';
 
 export default function SplashScreen({navigation}) {
   useEffect(() => {
@@ -9,12 +10,15 @@ export default function SplashScreen({navigation}) {
     }, 3000);
   }, []);
 
+  const colors = useTheme().colors;
   return (
-    <View style={styles.screen}>
+    <View style={[styles.screen, {backgroundColor: colors.themeColor}]}>
       <StatusBar
-        barStyle={'dark-content'}
+        barStyle={
+          colors.themeColor === 'white' ? 'dark-content' : 'light-content'
+        }
         // translucent={true}
-        backgroundColor="white"
+        backgroundColor={colors.themeColor}
       />
       {/* <LinearGradient
         start={{x: 0.5, y: 0}}
@@ -28,7 +32,6 @@ export default function SplashScreen({navigation}) {
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
-    backgroundColor: 'white',
     alignItems: 'center',
     justifyContent: 'center',
   },

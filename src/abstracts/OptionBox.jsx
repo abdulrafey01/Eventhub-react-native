@@ -1,14 +1,17 @@
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet, Dimensions} from 'react-native';
 import React from 'react';
 import HeadingOne from './HeadingOne';
+
+const heightScreen = Dimensions.get('window').height;
+const widthScreen = Dimensions.get('window').width;
 
 export default function OptionBox({
   color,
   text,
   icon,
   width,
-  height = 39,
-  fontSize = 15,
+  height = heightScreen * 0.05,
+  fontSize = widthScreen * 0.04,
 }) {
   return (
     <View style={{...styles.container, backgroundColor: color, width, height}}>
@@ -32,6 +35,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'row',
-    gap: 10,
+    gap: widthScreen * 0.03,
   },
 });
